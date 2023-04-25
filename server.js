@@ -96,8 +96,8 @@ app.put('/image',(req,res) => {image.handleImage(req,res,db)});
 // const PORT = process.env.PORT;
 
 
-app.listen(3001,() =>{ //3001 je port
-	console.log(`app is running on port on 3001`);
+app.listen(3000,() =>{ //3000 je port
+	console.log(`app is running on port on 3000`);
 })
 
 // console.log(PORT);
