@@ -1,14 +1,14 @@
 // import express from 'express';
-const express = require('express');
-const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
+import express, { json } from 'express';
+import bcrypt from 'bcrypt-nodejs';
+import cors from 'cors';
 const app = express();
-const knex = require('knex');
+import knex from 'knex';
 
-const register = require('./controllers/register.js');
-const signin = require('./controllers/signin.js');
-const profile = require('./controllers/profile.js');
-const image = require('./controllers/image.js');
+import { handleRegister } from './controllers/register.js';
+import { handleSignIn } from './controllers/signin.js';
+import { handleProfileGet } from './controllers/profile.js';
+import { handleImage } from './controllers/image.js';
 
 // host 127.0.0.1 je isto sto i localhost
 //user OWNER U BAZI PODATAKA
@@ -32,7 +32,7 @@ db.select('*').from('users')
 		// console.log(data);
 	});
 
-app.use(express.json());
+app.use(json());
 app.use(cors());
 
 // const database = { //koristimo ovako jer trenutno ne radimo za bazom podataka
@@ -64,19 +64,19 @@ app.get('/',(req,res) =>{
 
 //signin
 
-app.post('/signin',(req,res) =>{signin.handleSignIn(req,res,db,bcrypt)})
+app.post('/signin',(req,res) =>{handleSignIn(req,res,db,bcrypt)})
 
 //register
 
-app.post('/register',(req,res) => {register.handleRegister(req,res,db,bcrypt)}); // nalazi se u controller/register.js
+app.post('/register',(req,res) => {handleRegister(req,res,db,bcrypt)}); // nalazi se u controller/register.js
 
 //profile/:userId
 
-app.get('/profile/:id',(req,res) =>{profile.handleProfileGet(req,res,db)});
+app.get('/profile/:id',(req,res) =>{handleProfileGet(req,res,db)});
 
 // image
 
-app.put('/image',(req,res) => {image.handleImage(req,res,db)});
+app.put('/image',(req,res) => {handleImage(req,res,db)});
 
 // BCRYPT NODEJS ENKRIPCIJA PASSWORDA!!!
 
